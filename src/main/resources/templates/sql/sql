@@ -1,0 +1,102 @@
+
+create table member
+(
+    ID               int auto_increment
+        primary key,
+    EMAIL            varchar(100)                                      null,
+    USERNAME         varchar(100)                                      null,
+    PASSWORD         varchar(200)                                      null,
+    ROLE             varchar(100)  default 'ROLE_USER'                 null,
+    JOIN_DATE        date          default sysdate()                   not null,
+    USER_ICON_URL    varchar(200)  default '/img/sidebar/userIcon.png' null,
+    USER_DESCRIPTION varchar(1000) default '환영합니다. 나만의 메신저를 꾸며보세요!'    null
+);
+
+
+create table emailauthentication
+(
+    EMAIL varchar(100) null,
+    AUTH  varchar(100) null
+);
+
+
+create table token
+(
+    ID                         int auto_increment
+        primary key,
+    EMAIL                      varchar(100)  null,
+    ACCESS_TOKEN               varchar(1000) null,
+    REFRESH_TOKEN              varchar(1000) null,
+    CREATE_DATE                datetime      null,
+    ACCESS_TOKEN_EXPIRES_DATE  datetime      null,
+    REFRESH_TOKEN_EXPIRES_DATE datetime      null
+);
+
+
+create table channel
+(
+    CHANNEL_UID         int auto_increment
+        primary key,
+    CHANNEL_TITLE       varchar(100)                   null,
+    CHANNEL_ICON_URL    varchar(100)                   null,
+    CHANNEL_DESCRIPTION varchar(500)                   null,
+    CHANNEL_OWNER       int                            null,
+    CHANNEL_INVITE_CODE varchar(100)                   null,
+    CHANNEL_IS_OPEN     tinyint(1)   default 0         null,
+    CHANNEL_CREATEDATE  timestamp    default sysdate() not null,
+    CHANNEL_TYPE        varchar(100) default 'NORMAL'  not null
+);
+
+
+
+create table channelmember
+(
+    CHANNEL_UID              int                              null,
+    MEMBER_UID               int                              null,
+    CHANNEL_MEMBER_AUTHORITY varchar(100) default 'ROLE_USER' null,
+    CHANNEL_MEMBER_JOINDATE  timestamp    default sysdate()   not null
+);
+
+create table chat_messages
+(
+    room_id   varchar(50) null,
+    sender    varchar(50) null,
+    message   varchar(50) null,
+    send_date datetime    null,
+    constraint room_id_sender_message_send_date
+        unique (room_id, sender, message, send_date)
+);
+
+create table chat_room
+(
+    room_id varchar(255) not null
+        primary key,
+    name    varchar(255) null
+);
+
+create table content
+(
+    id         int auto_increment
+        PRIMARY key,
+    writer_id  int,
+    title      varchar(100),
+    content    longtext,
+    uploadDate date    default current_timestamp(),
+    visible    tinyint default TRUE,
+    contentIMG VARCHAR(500),
+    isImgIn    tinyint,
+    sharingCode varchar(200)
+
+);
+
+create table event
+(
+    id        int NOT NULL AUTO_INCREMENT PRIMARY key,
+    estart    date,
+    end       date,
+    title     varchar(500),
+    memberId  int,
+    groupName varchar(100),
+    allday    BOOLEAN,
+    groupId int
+);

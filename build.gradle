@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.12'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.team4'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+    //Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // https://mvnrepository.com/artifact/com.auth0/java-jwt
+    implementation group: 'com.auth0', name: 'java-jwt', version: '4.2.1'
+    //Mail
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    //WebSocket
+    implementation 'org.springframework.boot:spring-boot-starter-websocket'
+    implementation 'org.webjars:sockjs-client:1.1.2'
+    implementation 'org.webjars:stomp-websocket:2.3.3-1'
+    //MyBatis
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
+    //DB
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    //Vidu
+    implementation 'io.openvidu:openvidu-java-client:2.27.0'
+
+
+    compileOnly 'org.projectlombok:lombok'
+    implementation('org.projectlombok:lombok')
+    annotationProcessor 'org.projectlombok:lombok'
+
+
+///////////////////////////////////////////////////////////////이거 밑으로는 세트임
+    //embedded-redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+    implementation('it.ozimov:embedded-redis:0.7.3') { exclude group: "org.slf4j", module: "slf4j-simple" }
+    implementation 'com.google.code.gson:gson:2.8.9'
+}
+//configurations {
+//    all {
+//        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+//    }
+//}
+tasks.named('test') {
+    useJUnitPlatform()
+}

@@ -1,0 +1,39 @@
+server:
+  port: 8090
+
+#logging:
+#  level:
+#    org.springframework: DEBUG
+
+spring:
+  mail:
+    # mail default settings
+    default-encoding: UTF-8
+    # mail custom settings
+    host: smtp.gmail.com
+    port: 587
+    username: wodus331@gmail.com
+    password: abgrxabwbjkyefef
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        debug: true
+        mime:
+          charset: UTF-8
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
+
+  #DB
+  datasource:
+    url: jdbc:mariadb://localhost:3306/project1
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 1234
+
+  profiles:
+    active: local
